@@ -1,0 +1,20 @@
+{
+  "name": "expense_tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --env-file=.env index.js"
+  },
+  "author": "Jay Surya",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cookie-session": "^2.1.0",
+    "express": "^4.21.1",
+    "express-validator": "^7.2.0",
+    "json2csv": "^6.0.0-alpha.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.2",
+    "nodemon": "^3.1.7"
+  }
+}
