@@ -91,15 +91,10 @@ router.post('/api/signin',
     }
 );
 
-router.post('/api/users', [
-    body('email')
-        .trim()
-        .isEmail()
-        .withMessage('Email must be valid'),
-], validateRequest, async (req, res, next) => {
+router.get('/api/users/:id', async (req, res, next) => {
     try {
-        const {email}= req.body;
-        const user = await User.find({email});
+        const {id}= req.params;
+        const user = await User.findById(id);
         if (!user) {
             res.status(404).send('User not found');
         }

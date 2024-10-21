@@ -129,26 +129,27 @@ router.post('/api/expenses',
 
 
 // Retrieve expenses for a specific user
-router.get('/api/expenses/:email', async (req, res) => {
+router.get('/api/expenses/:id', async (req, res) => {
     try {
-        const userEmail = req.params.email;
+        const {id} = req.params;
 
         // Check if the user exists
-        const user = await User.findOne({ email: userEmail });
+        const user = await User.findById(id);
         if (!user) {
             return res.status(404).send('User not found');
         }
 
         // Retrieve all expenses where this user is a participant
-        const expenses = await Expense.find({ 'participants.email': userEmail });
+        const expenses = await Expense.find({ 'participants.email': user.email });
 
         // If no expenses are found for the user
         if (expenses.length === 0) {
             return res.status(404).send('No expenses found for this user');
         }
         const results = expenses.map(expense => {
-            const participant = expense.participants.find(p => p.email === userEmail);
+            const participant = expense.participants.find(p => p.email === user.email);
             return {
+                user: user.name,
                 amountOwed: participant ? participant.amountOwed : null,
                 createdAt: expense.createdAt
             };
