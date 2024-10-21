@@ -167,7 +167,7 @@ router.get('/api/expenses',authUser, async (req, res) => {
 
 
 // Retrieve all expenses (overall expenses)
-router.get('/api/expenses', async (req, res) => {
+router.get('/api/expenses/overall', async (req, res) => {
     try {
         // Retrieve all expenses from the database
         const expenses = await Expense.find();
