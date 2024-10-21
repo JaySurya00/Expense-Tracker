@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const validateRequest = require('../middlewares/validate-request.js');
 const { body, check } = require('express-validator');
+const { authUser }= require('../middlewares/validate-auth.js');
 const User = require('../models/user-model.js');
 const Expense = require('../models/expense-model.js');
 const BadRequestError = require('../errors/bad-request-error.js')
@@ -67,7 +68,7 @@ router.post('/api/expenses',
                 return true;
             })
     ],
-    validateRequest, async (req, res, next) => {
+    authUser, validateRequest, async (req, res, next) => {
         try {
             const { amount, splitType, participants } = req.body;
 
@@ -129,9 +130,9 @@ router.post('/api/expenses',
 
 
 // Retrieve expenses for a specific user
-router.get('/api/expenses/:id', async (req, res) => {
+router.get('/api/expenses',authUser, async (req, res) => {
     try {
-        const {id} = req.params;
+        const id= req.userId
 
         // Check if the user exists
         const user = await User.findById(id);

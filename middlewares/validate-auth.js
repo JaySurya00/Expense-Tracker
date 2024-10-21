@@ -13,4 +13,4 @@ const authUser = (req, res, next) => {
     }
 }
 
-module.exports = {authAdmin, authUser};
+module.exports = {authUser};

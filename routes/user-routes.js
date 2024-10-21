@@ -5,6 +5,7 @@ const validateRequest = require('../middlewares/validate-request.js');
 const User = require('../models/user-model.js');
 const generateToken = require('../utils/generate-token.js');
 const BadRequestError = require('../errors/bad-request-error.js');
+const { authUser }= require('../middlewares/validate-auth.js');
 
 router.post('/api/signup',
     [
@@ -91,9 +92,9 @@ router.post('/api/signin',
     }
 );
 
-router.get('/api/users/:id', async (req, res, next) => {
+router.get('/api/users',authUser, async (req, res, next) => {
     try {
-        const {id}= req.params;
+        const id= req.userId;
         const user = await User.findById(id);
         if (!user) {
             res.status(404).send('User not found');
