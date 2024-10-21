@@ -191,7 +191,7 @@ router.get('/api/expenses/overall', async (req, res) => {
 const { generateBalanceSheetCSV } = require('../utils/balance-sheet.js');
 
 // Download balance sheet as CSV
-router.get('/api/expenses/download/balance-sheet', async (req, res) => {
+router.get('/api/expenses/balance-sheet', async (req, res) => {
     try {
         // Fetch all expenses from the database
         const expenses = await Expense.find();
